@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">XO Game</string>
+    <string name="Select">Select</string>
+    <string name="o_its_your_turn">O its your turn !</string>
+    <string name="x_its_your_turn">X its your turn !</string>
+</resources>
