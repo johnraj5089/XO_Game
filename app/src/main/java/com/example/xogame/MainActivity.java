@@ -39,81 +39,51 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        gameActivity();
-
-
     }
 
-    public void gameActivity(){
+    public void gameActivity(View view){
 
-        Button button_top_centre = findViewById(R.id.button_top_centre);
-        Button button_top_right = findViewById(R.id.button_top_right);
-        Button button_top_left = findViewById(R.id.button_top_left);
-        Button button_middle_left = findViewById(R.id.button_middle_left);
-        Button button_middle_centre = findViewById(R.id.button_middle_centre);
-        Button button_middle_right = findViewById(R.id.button_middle_right);
-        Button button_bottom_left = findViewById(R.id.button_bottom_left);
-        Button button_bottom_centre = findViewById(R.id.button_bottom_centre);
-        Button button_bottom_right = findViewById(R.id.button_bottom_right);
+        view.setEnabled(false);
 
-        View.OnClickListener commonClickListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                view.setEnabled(false);
-
-                TextView player_chance = findViewById(R.id.textView);
-                TextView title = findViewById(R.id.textView2);
+        TextView player_chance = findViewById(R.id.textView);
+        TextView title = findViewById(R.id.textView2);
 
 
-                if (whose_turn[0] == 1){
-                    change_turn(view, whose_turn[0]);
-                    Update_position(String.valueOf(view.getId()), whose_turn[0]);
-                    whose_turn[0]--;
-                    player_chance.setText(R.string.o_its_your_turn);
-                    player_chance.setTypeface(null, Typeface.BOLD);
-                    player_chance.setTextColor(getResources().getColor(R.color.blue));
-                    title.setTextColor(getResources().getColor(R.color.blue));
-                    check_game_status(whose_turn[0]+1);
+        if (whose_turn[0] == 1){
+            change_turn(view, whose_turn[0]);
+            Update_position(String.valueOf(view.getId()), whose_turn[0]);
+            whose_turn[0]--;
+            player_chance.setText(R.string.o_its_your_turn);
+            player_chance.setTypeface(null, Typeface.BOLD);
+            player_chance.setTextColor(getResources().getColor(R.color.blue));
+            title.setTextColor(getResources().getColor(R.color.blue));
+            check_game_status(whose_turn[0]+1);
 
-                }
-                else{
-                    check_game_status(whose_turn[0]);
-                    change_turn(view, whose_turn[0]);
-                    Update_position(String.valueOf(view.getId()), whose_turn[0]);
-                    whose_turn[0]++;
-                    player_chance.setText(R.string.x_its_your_turn);
-                    player_chance.setTypeface(null, Typeface.BOLD);
-                    player_chance.setTextColor(getResources().getColor(R.color.red));
-                    title.setTextColor(getResources().getColor(R.color.red));
-                    check_game_status(whose_turn[0]-1);
-                }
-            }
-        };
-
-        button_top_centre.setOnClickListener(commonClickListener);
-        button_top_right.setOnClickListener(commonClickListener);
-        button_top_left.setOnClickListener(commonClickListener);
-        button_middle_left.setOnClickListener(commonClickListener);
-        button_middle_centre.setOnClickListener(commonClickListener);
-        button_middle_right.setOnClickListener(commonClickListener);
-        button_bottom_left.setOnClickListener(commonClickListener);
-        button_bottom_centre.setOnClickListener(commonClickListener);
-        button_bottom_right.setOnClickListener(commonClickListener);
-
+        }
+        else{
+            check_game_status(whose_turn[0]);
+            change_turn(view, whose_turn[0]);
+            Update_position(String.valueOf(view.getId()), whose_turn[0]);
+            whose_turn[0]++;
+            player_chance.setText(R.string.x_its_your_turn);
+            player_chance.setTypeface(null, Typeface.BOLD);
+            player_chance.setTextColor(getResources().getColor(R.color.red));
+            title.setTextColor(getResources().getColor(R.color.red));
+            check_game_status(whose_turn[0]-1);
+        }
     }
+
     public void change_turn(View v, int turn){
-
         Button button = (Button) v;
         if (turn == 1) {
         button.setText("X");
-        button.setTextSize(24);
-        button.setTypeface(null, Typeface.BOLD);
+        button.setTextSize(30);
+        button.setTypeface(null , Typeface.BOLD);
         button.setTextColor(getResources().getColor(R.color.red));
         }
         else{
             button.setText("0");
-            button.setTextSize(24);
+            button.setTextSize(30);
             button.setTypeface(null, Typeface.BOLD);
             button.setTextColor(getResources().getColor(R.color.blue));
         }
@@ -196,6 +166,14 @@ public class MainActivity extends AppCompatActivity {
                 });
         AlertDialog dialog = builder.create();
         dialog.getWindow().setGravity(Gravity.BOTTOM);
+
+        dialog.setOnShowListener(dialogInterface -> {
+            Button playButton = dialog.getButton(AlertDialog.BUTTON_NEGATIVE);
+            Button quitButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+
+            playButton.setTextColor(getResources().getColor(R.color.black)); // Change to your desired color
+            quitButton.setTextColor(getResources().getColor(R.color.black));   // Change to your desired color
+        });
         dialog.show();
 
     }
